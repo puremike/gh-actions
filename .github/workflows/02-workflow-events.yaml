@@ -1,6 +1,6 @@
 name: 02 Worflow Events
 
-on: pull_request
+on: workflow_dispatch
 
 jobs:
   echo:
