@@ -1,0 +1,14 @@
+name: 04 Using Actions
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Printing Folders
+        run: |
+          ls
+          echo "Repo Name: ${{github.repository}}"
