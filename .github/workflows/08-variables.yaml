@@ -48,7 +48,7 @@ jobs:
       - name: Print Prod Variables
         run: |
           echo "Repo var: $${{vars.REPOSITORY_VAR}}"
-          echo "Environment var: ${{TARGET_VAR}}"
+          echo "Environment var: ${{vars.TARGET_VAR}}"
 
   echo-undefined:
     runs-on: ubuntu-latest
