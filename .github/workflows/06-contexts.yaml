@@ -18,4 +18,4 @@ jobs:
           echo "Repository Name: ${{ github.repository}}"
       - name: Retrieve Variable
         run: |
-          echo "Variable Name: $vars.MY_VAR"
+          echo "Variable Name: ${{ vars.MY_VAR }}"
