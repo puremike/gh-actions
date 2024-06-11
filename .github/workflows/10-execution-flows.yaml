@@ -17,7 +17,6 @@ jobs:
 
   unit-tests:
     runs-on: ubuntu-latest
-    continue-on-error: true ## this should be sparingly used, only if there is a specific use-case for it. For example, experimental features
     steps:
       - name: Running unit tests
         run: echo "Running tests..."
