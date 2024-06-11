@@ -30,7 +30,7 @@ jobs:
 
       - name: Step with mistake
         run: |
-          echo "output2=value2" >> "$GITHUB_OUTPUT"
+          echo "mistake=true" > "$GITHUB_OUTPUT"
           cat "$GITHUB_OUTPUT"
   deploy:
     runs-on: ubuntu-latest
