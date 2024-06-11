@@ -32,8 +32,12 @@ jobs:
           echo "Repository Name: ${{ github.repository}}"
 
       - name: Retrieve Variable
+        env:
+          MY_VAR: 'Hello, World'
         run: |
-          echo "Variable Name: ${{ vars.MY_VAR }}"
+          echo "Variable Name: $MY_VAR"
+        # run: |
+        #   echo "Variable Name: ${{ vars.MY_VAR }}" // I created a repo variable and used it here
 
       - name: Print Env Variables
         env:
