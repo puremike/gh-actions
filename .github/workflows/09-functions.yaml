@@ -1,7 +1,7 @@
 name: 09-Using_Functions
 
 on:
-  push:
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
           EOF
 
       - name: Bug step
-        if: failure() && !cancelled() && contains(github.event.pull_request.labels, 'fix')
+        if: !cancelled() && contains(github.event.pull_request.labels, 'fix')
         run: echo "I am a bug fix"
 
       - name: Sleep for 20 seconds
