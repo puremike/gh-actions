@@ -12,7 +12,7 @@ jobs:
         run: exit 1
 
       - name: I will be skipped
-        if: ${{ success() == false}}
+        if: ${{ success()}}
         run: echo "I will print if previous steps succeed"
 
       - name: I will execute
@@ -26,3 +26,7 @@ jobs:
       - name: I will execute when cancelled
         if: ${{cancelled()}}
         run: echo "I will execute when the workflow has been cancelled"
+
+      - name: Sleep for 20 seconds
+        run: sleep 20
+        shell: bash
