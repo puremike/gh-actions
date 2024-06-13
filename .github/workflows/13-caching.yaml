@@ -17,8 +17,61 @@ on:
         default: 20.x
 
 jobs:
+  install-deps:
+    runs-on: ubuntu-latest
+    outputs:
+      deps-cache-key: ${{ steps.cache-key.outputs.CACHE_KEY }}
+    defaults:
+      run:
+        working-directory: apps/react-app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{inputs.node-versions}}
+
+      - name: Calculate cache key
+        id: cache-key
+        run: |
+          echo "CACHE_KEY=${{ hashFiles('apps/react-app/package-lock.json') }}" >> "$GITHUB_OUTPUT"
+
+      - name: Download cached dependencies
+        uses: actions/cache@v3
+        if: ${{ inputs.use-cache }}
+        id: cache
+        with:
+          path: apps/react-app/node_modules
+          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+  linting:
+    runs-on: ubuntu-latest
+    needs: install-deps
+    defaults:
+      run:
+        working-directory: apps/react-app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+      - name: Download cached dependencies
+        if: ${{needs.install-deps.outputs.deps-cache-key}}
+        run: npm ci
+      - name: Testing
+        run: npm run test
+      - name: Linting
+        run: echo "Linting ......"
+
   build:
     runs-on: ubuntu-latest
+    needs: install-deps
     defaults:
       run:
         working-directory: apps/react-app
@@ -32,23 +85,13 @@ jobs:
         with:
           node-version: ${{inputs.node-versions}}
 
-      - name: Download Cached Deps
-        id: cache
-        if: ${{inputs.use-cache}}
+      - name: Download Cached Dependencies
         uses: actions/cache@v3
+        if: ${{needs.install-deps.outputs.deps-cache-key}}
+        id: cache
         with:
           path: apps/react-app/node_modules
           key: ${{ hashFiles('apps/react-app/package-lock.json') }}
 
-      - name: Install Deps
-        if: ${{steps.cache.outputs.cache-hit != 'true'}}
-        run: npm ci
-
-      - name: Testing
-        run: npm run test
-
       - name: Building
         run: npm run build
-
-      - name: Deploying to nonprod
-        run: echo "Deploying to nonprod"
