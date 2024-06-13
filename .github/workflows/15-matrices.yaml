@@ -43,7 +43,7 @@ jobs:
 
   include-example:
     runs-on: ubuntu-latest
-    name: ${{matrix.color}}-${{matrix.shape}}-${{matrix.size}}
+    name: ${{matrix.color}}-${{matrix.shape}}-${{matrix.size}}-${{matrix.opacity}}
     strategy:
       matrix:
         color: [red, green]
