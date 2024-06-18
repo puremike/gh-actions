@@ -21,6 +21,10 @@ on:
         description: Whether the output debug messages to the console
         required: false
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   dependency-update:
     runs-on: ubuntu-latest
@@ -29,9 +33,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Check for dependency updates
         uses: ./.github/actions/js-dependency-update
+        id: update-deps
         with:
           base-branch: ${{inputs.base-branch}}
           target-branch: ${{inputs.target-branch}}
           working-directory: ${{inputs.working-dir}}
           debug: ${{inputs.debug}}
           gh-token: ${{secrets.GITHUB_TOKEN}}
+      - name: Print custom action output
+        run: |
+          echo "Updates available: ${{ steps.update-deps.outputs.updates-available }}"
