@@ -1,8 +1,25 @@
 name: 17-2-Custom Actions-JS
 
-run-name: 17-2-Custom-Actions-JS
+run-name: '17-2-Custom-Actions-JS - BB: ${{inputs.base-branch}} - TB: ${{inputs.target-branch}} - WD: ${{inputs.working-dir}} '
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      base-branch:
+        type: string
+        default: main
+
+      target-branch:
+        type: string
+        default: update-dependencies
+
+      working-dir:
+        type: string
+        default: apps/react-app
+
+      debug:
+        description: Whether the output debug messages to the console
+        required: false
 
 jobs:
   dependency-update:
@@ -12,3 +29,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Check for dependency updates
         uses: ./.github/actions/js-dependency-update
+        with:
+          base-branch: ${{inputs.base-branch}}
+          target-branch: ${{inputs.target-branch}}
+          working-directory: ${{inputs.working-dir}}
+          debug: ${{inputs.debug}}
+          gh-token: ${{secrets.GITHUB_TOKEN}}
