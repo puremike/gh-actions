@@ -17,6 +17,11 @@ inputs:
     description: "'dev' or 'prod'. Controls whether dev dependencies are installed"
     default: dev
 
+outputs:
+  installed-deps:
+    description: Whether dependencies were installed or not
+    value: ${{ steps.cache.outputs.cache-hit != 'true' }}
+    
 runs:
   using: composite
   steps:
