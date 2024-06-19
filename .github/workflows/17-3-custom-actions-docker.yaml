@@ -6,7 +6,8 @@ on:
       url:
         type: choice
         options:
-          - https://www.facebook.com
+          - https://www.google.com
+          - https://
           - https://www.gydcdj.net.xy
         default: 'https://www.google.com'
 
