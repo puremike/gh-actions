@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   deploy:
-    uses: ./.github.workflows/18-1-reusable-workflows.yaml
+    uses: ./.github/workflows/18-1-reusable-workflows.yaml
     with:
       target-directory: dummy dir
 
