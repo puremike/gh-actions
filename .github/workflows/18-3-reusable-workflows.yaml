@@ -9,5 +9,5 @@ jobs:
       target-directory: scop dir
 
   e2e-tests:
-    needs: deploy
     uses: puremike/gh-action-cypress-e2e/.github/workflows/e2e.yaml@main
+    needs: deploy
