@@ -1,0 +1,13 @@
+name: 18 - 3 - Reusable Workflows - CALLER
+
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/18-1-reusable-workflows.yaml
+    with:
+      target-directory: scop dir
+
+  e2e-tests:
+    needs: deploy
+    uses: puremike/gh-action-cypress-e2e/.github/workflows/e2e.yaml@main
