@@ -1,0 +1,19 @@
+name: 19 - 1 - concurrency
+
+on: workflow_dispatch
+
+concurrency:
+  group: ${{github.workflow}} - ${{github.ref}}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Ping URL
+        uses: ./.github/actions/docker-ping-url
+        with:
+          url: https://www.fachksdui.net
+          max_trials: 20
+          delay: 5
