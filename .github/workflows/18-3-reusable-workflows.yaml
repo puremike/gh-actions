@@ -10,4 +10,6 @@ jobs:
 
   e2e-tests:
     uses: puremike/gh-action-cypress-e2e/.github/workflows/e2e.yaml@main
+    secrets:
+      access-token: ${{secrets.GH_TOKEN}}
     needs: deploy
