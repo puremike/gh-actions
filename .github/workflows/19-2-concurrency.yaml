@@ -1,0 +1,31 @@
+name: 19 - 2 - concurrency
+
+on: workflow_dispatch
+
+jobs:
+  ping-with-concurrency:
+    # Concurrency at job level
+    concurrency:
+      group: ${{github.workflow}} - ${{github.ref}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Ping URL
+        uses: ./.github/actions/docker-ping-url
+        with:
+          url: https://www.fachksdui.net
+          max_trials: 20
+          delay: 5
+
+  ping-without-concurrency:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Ping URL
+        uses: ./.github/actions/docker-ping-url
+        with:
+          url: https://www.fachksdui.net
+          max_trials: 20
+          delay: 5
