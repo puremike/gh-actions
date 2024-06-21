@@ -29,7 +29,7 @@ jobs:
       - name: Check PR Title
         run: |
           if [[ ${{env.TITLE}} =~ ^feat ]]; then
-          echo "PR is a feature"
+          echo "PR is a feature. Ha ha!"
           exit 0
           else
           echo "PR is not a feature"
