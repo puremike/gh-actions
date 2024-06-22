@@ -42,4 +42,4 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Check PR Title
-        uses: ./.github/actions/js-ca-security
+        uses: ./.github/actions/js-ca-securiity
